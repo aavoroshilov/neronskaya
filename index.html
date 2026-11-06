@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Пархомчики и Неронские из Пуховичей</title>
+<style>
+
+@page { size:A4; margin:16mm 17mm; }
+:root {
+ --paper:#ffffff; --canvas:#eeeae6; --ink:#242323; --muted:#625d5a; --line:#d5cfca;
+ --accent:#812f34; --accent-soft:#f8efed; --soft:#f6f3f0;
+ --ok:#285d39; --ok-bg:#eaf2e9; --maybe:#725011; --maybe-bg:#faf0d9;
+ --no:#842f34; --no-bg:#f8e9e7; --family:#344f70; --family-bg:#eaf0f7;
+ --sans:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans","Noto Sans Armenian","Noto Sans Georgian","Noto Sans Hebrew","DejaVu Sans",Arial,sans-serif;
+ --serif:Georgia,"Times New Roman","Noto Serif","Noto Serif Armenian","Noto Serif Georgian","Noto Serif Hebrew","DejaVu Serif","Sylfaen",serif; --tree-gap:40px;
+ color-scheme:light;
+}
+* { box-sizing:border-box; }
+html { scroll-padding-top:24px; }
+body { margin:0; background:var(--canvas); color:var(--ink); font:1.0625rem/1.75 var(--serif); }
+a { color:var(--accent); text-underline-offset:3px; text-decoration-thickness:1px; }
+a:hover { text-decoration-thickness:2px; }
+a:focus-visible,summary:focus-visible,.table-wrap:focus-visible { outline:3px solid var(--accent); outline-offset:5px; }
+.report-shell { max-width:1180px; margin:32px auto; background:var(--paper); border-top:7px solid var(--ink); }
+.report-topline { display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px 20px; padding:17px 52px; border-bottom:1px solid var(--ink); color:var(--muted); font:600 .75rem/1.5 var(--sans); text-transform:none; letter-spacing:.12em; }
+.report-header { padding:40px 52px 32px; border-bottom:1px solid var(--ink); }
+.report-intro { display:grid; grid-template-columns:minmax(0,1.7fr) minmax(0,1fr); gap:0 48px; align-items:start; }
+.eyebrow { margin:0 0 10px; grid-column:1; font:600 .75rem/1.5 var(--sans); letter-spacing:.16em; text-transform:none; color:var(--accent); }
+h1 { overflow-wrap:anywhere; grid-column:1; font:400 clamp(3rem,7vw,5.75rem)/1.03 var(--serif); letter-spacing:normal; margin:0 0 16px; text-wrap:balance; }
+.subtitle { grid-column:1; font:1.125rem/1.55 var(--serif); max-width:42ch; color:var(--muted); margin:0 0 24px; }
+.report-meta { grid-column:2; grid-row:2/4; margin:6px 0 0; display:grid; gap:16px; padding-left:24px; border-left:1px solid var(--line); font:.8125rem/1.7 var(--sans); }
+.report-meta dt { font:600 .75rem/1.5 var(--sans); text-transform:none; letter-spacing:.06em; color:var(--muted); margin:0 0 3px; }
+.report-meta dd { margin:0; }
+.demo-note { grid-column:1/-1; padding:12px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); font:.75rem/1.65 var(--sans); color:var(--muted); }
+.demo-note strong { color:var(--ink); }
+.family-tree { margin:30px auto 0; width:100%; max-width:780px; min-width:0; }
+.tree-heading { display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:8px 20px; margin-bottom:16px; }
+.tree-heading h2 { font:400 1.75rem/1.3 var(--serif); color:var(--ink); letter-spacing:-.025em; border:0; padding:0; margin:0; }
+.tree-heading>span { color:var(--muted); font:.75rem/1.5 var(--sans); }
+.tree-row { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--tree-gap); }
+.person-card { min-width:0; overflow-wrap:anywhere; display:grid; grid-template-columns:minmax(0,1fr) auto; gap:4px 12px; padding:10px 14px 12px; border:0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--paper); text-decoration:none; transition:background-color 160ms ease; }
+a.person-card:hover { background:var(--accent-soft); }
+.person-role { grid-column:1/-1; color:var(--muted); font:600 .75rem/1.4 var(--sans); letter-spacing:.07em; text-transform:none; }
+.person-name { grid-column:1/-1; color:var(--ink); font:400 1.375rem/1.3 var(--serif); letter-spacing:normal; overflow-wrap:anywhere; }
+.person-years { color:var(--muted); font:.75rem/1.6 var(--sans); font-variant-numeric:tabular-nums; }
+.person-status { color:var(--accent); font:600 .75rem/1.6 var(--sans); }
+.person-card.subject { background:var(--accent-soft); border-top:3px solid var(--accent); border-bottom:1px solid var(--accent); padding-top:8px; }
+.person-card.subject .person-role { color:var(--accent); }
+.person-card.subject .person-status { grid-column:1/-1; font-weight:400; color:var(--muted); }
+.spouse-group { position:relative; }
+.spouse-group::before { content:""; position:absolute; top:50%; left:calc(50% - var(--tree-gap)/2); width:var(--tree-gap); height:4px; border-top:1px solid var(--accent); border-bottom:1px solid var(--accent); }
+.tree-connectors { position:relative; width:100%; height:24px; color:var(--accent); }
+.tree-connectors::before { content:""; position:absolute; top:0; bottom:0; left:calc(25% - var(--tree-gap)/4); border-left:1px solid currentColor; }
+.mother-branch { position:absolute; top:0; left:calc(25% - var(--tree-gap)/4); width:calc(50% + var(--tree-gap)/2); height:10px; border-right:1px solid currentColor; border-bottom:1px solid currentColor; }
+.child-row .person-card { grid-column:1; }
+.tree-caption { font:.75rem/1.65 var(--sans); color:var(--muted); margin-top:14px; }
+.tree-caption span { display:block; margin-top:4px; }
+.report-nav { display:flex; flex-wrap:wrap; gap:4px 32px; margin:0 52px; padding:6px 0; border-bottom:1px solid var(--ink); font:600 .75rem/1.5 var(--sans); text-transform:none; letter-spacing:.06em; }
+.report-nav a { min-height:44px; display:inline-flex; align-items:center; text-decoration:none; }
+.report-nav a:hover { text-decoration:underline; }
+main { max-width:900px; padding:36px 52px 44px; margin:0 auto; }
+h2 { margin:44px 0 18px; padding:14px 0 0; border-top:1px solid var(--ink); color:var(--ink); font:400 clamp(1.625rem,3vw,2rem)/1.3 var(--serif); letter-spacing:-.025em; break-after:avoid; text-wrap:balance; }
+h3 { margin:28px 0 14px; color:var(--accent); font:600 .875rem/1.5 var(--sans); letter-spacing:.04em; }
+p { margin:0 0 18px; }
+p,li,td { overflow-wrap:break-word; }
+main>p { max-width:72ch; }
+.lead { padding:22px 24px 24px; background:var(--soft); border-top:3px solid var(--accent); border-bottom:1px solid var(--line); margin-bottom:24px; }
+.lead h2 { margin:0 0 14px; padding:0; border:0; color:var(--accent); font:600 .75rem/1.5 var(--sans); text-transform:none; letter-spacing:.12em; }
+.lead ul { margin:0; padding-left:18px; }
+.lead li { margin-bottom:12px; }
+.lead li:last-child { margin-bottom:0; }
+.tag { display:inline-block; max-width:100%; padding:2px 7px; margin:2px 0; border-radius:2px; font:600 .75rem/1.5 var(--sans); white-space:nowrap; }
+.ok { color:var(--ok); background:var(--ok-bg); }
+.maybe { color:var(--maybe); background:var(--maybe-bg); }
+.no { color:var(--no); background:var(--no-bg); }
+.fam { color:var(--family); background:var(--family-bg); }
+.evidence-guide { border-bottom:1px solid var(--line); color:var(--muted); margin:0 0 30px; font:.8125rem/1.7 var(--sans); }
+.evidence-guide h3 { padding:12px 0 0; margin:0; font:600 .8125rem/1.7 var(--sans); color:var(--ink); letter-spacing:normal; }
+.legend { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px 24px; padding:8px 0 18px; }
+.legend .tag { display:table; margin-bottom:4px; }
+.table-wrap { max-width:100%; overflow-x:auto; margin:16px 0 20px; }
+table { width:100%; border-collapse:collapse; font:.875rem/1.65 var(--sans); }
+th,td { text-align:start; vertical-align:top; border-bottom:1px solid var(--line); padding:12px 16px 12px 0; }
+th { color:var(--muted); font:600 .75rem/1.5 var(--sans); text-transform:none; letter-spacing:.04em; border-bottom:1px solid var(--ink); }
+th:last-child,td:last-child { padding-right:0; }
+td.d { width:18%; min-width:90px; }
+td.t { width:17%; }
+tr { break-inside:avoid; }
+tr:target { background:var(--accent-soft); }
+blockquote { margin:28px 0; padding:2px 0 2px 20px; border-left:2px solid var(--accent); color:var(--accent); font:italic 1.375rem/1.5 var(--serif); }
+ol,ul { margin:0 0 22px; padding-left:22px; }
+li { margin-bottom:10px; }
+.small { color:var(--muted); font:.8125rem/1.65 var(--sans); }
+.src li { color:var(--muted); font:.8125rem/1.75 var(--sans); margin-bottom:18px; padding-left:4px; }
+.src li b { color:var(--ink); }
+:target { scroll-margin-top:24px; }
+.report-footer { display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; padding:20px 52px; border-top:1px solid var(--ink); color:var(--muted); font:.75rem/1.5 var(--sans); }
+.skip-link { position:absolute; top:8px; left:8px; padding:12px 16px; z-index:10; background:var(--paper); transform:translateY(-200%); font:1rem/1.5 var(--sans); }
+.skip-link:focus { transform:translateY(0); }
+@media(max-width:959px) {
+ .report-shell { margin:16px; }
+ .report-header { padding:32px; }
+ .report-topline,.report-footer { padding-left:32px; padding-right:32px; }
+ .report-nav { margin-left:32px; margin-right:32px; }
+ .report-intro { gap:0 24px; }
+ .person-card { display:flex; flex-direction:column; gap:4px; }
+ main { padding:32px; }
+}
+@media(max-width:600px) {
+ :root { --tree-gap:20px; }
+ body { font-size:1rem; }
+ .report-shell { margin:0; border-top-width:5px; }
+ .report-topline { padding:13px 20px; font-size:.75rem; letter-spacing:.06em; }
+ .report-header { padding:24px 20px; }
+ .report-intro { display:block; }
+ h1 { font-size:3rem; }
+ .subtitle { font-size:1rem; margin-bottom:18px; }
+ .report-meta { display:flex; flex-wrap:wrap; gap:10px 24px; padding:0; margin:0 0 18px; border:0; }
+ .demo-note { font-size:.75rem; }
+ .family-tree { margin-top:24px; }
+ .tree-heading { align-items:start; }
+ .tree-heading h2 { font-size:1.5rem; }
+ .person-card { padding:10px; }
+ .person-name { font-size:1.125rem; }
+ .person-role { letter-spacing:.03em; }
+ .person-card.subject { padding-top:8px; }
+ .tree-connectors { height:22px; }
+ .tree-caption { font-size:.75rem; }
+ .report-nav { margin:0 20px; gap:4px 20px; letter-spacing:.02em; }
+ main { padding:24px 20px; }
+ .lead { padding:20px; }
+ .legend { grid-template-columns:1fr; }
+ h2 { margin-top:36px; }
+ table { min-width:560px; }
+ th,td { padding-right:12px; }
+ .report-footer { padding:20px; }
+}
+@media(prefers-reduced-motion:reduce) { *,*::before,*::after { transition:none !important; scroll-behavior:auto !important; } }
+@media print {
+ body { background:white; font-size:10.5pt; }
+ .report-shell { max-width:none; margin:0; border:0; }
+ .report-topline,.report-footer { padding:8pt 0; font-size:8pt; }
+ .report-header { padding:16pt 0; }
+ .report-intro { gap:0 24pt; }
+ h1 { font-size:34pt; }
+ .subtitle { font-size:11pt; }
+ .demo-note { font-size:8pt; }
+ .family-tree { max-width:145mm; margin-top:18pt; break-inside:avoid; }
+ .person-card { padding:8pt; }
+ .person-name { font-size:12pt; }
+ .person-role,.person-years,.person-status,.tree-caption { font-size:8pt; }
+ .report-nav,.skip-link { display:none; }
+ main { padding:0; }
+ h2 { font-size:16pt; margin-top:20pt; }
+ .table-wrap { overflow:visible; }
+ table { min-width:0; font-size:8.5pt; }
+ th { font-size:8pt; }
+ .evidence-guide { break-inside:avoid; font-size:8.5pt; }
+ .legend { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ a { color:inherit; }
+ .person-card.subject { background:white; }
+}
+/* Local font fallbacks retain multilingual text without network requests. */
+bdi { unicode-bidi:isolate; }
+html :lang(ar), html :lang(he), html :lang(yi), html :lang(ka), html :lang(hy) { letter-spacing:normal; }
+.report-note { grid-column:1/-1; color:var(--muted); font:.8125rem/1.65 var(--sans); }
+.tree-connectors.uncertain::before { border-left-style:dashed; }
+.mother-branch.uncertain { border-right-style:dashed; border-bottom-style:dashed; }
+.spouse-group.uncertain::before { border-top-style:dashed; border-bottom-style:dashed; }
+.photos { display:flex; flex-wrap:wrap; gap:16px; align-items:flex-start; }
+.photos figure { margin:0; }
+figure img { display:block; max-width:100%; height:auto; }
+figcaption { font:.8125rem/1.65 var(--sans); color:var(--muted); margin-top:8px; }
+.docfig { margin:24px 0; break-inside:avoid; }
+.docfig img { width:100%; max-height:225mm; object-fit:contain; border:1px solid var(--line); }
+@media screen { .pb { break-before:auto; } .docfig img { max-height:none; } }
+@media print { .pb { break-before:page; } .tag { white-space:normal; } }
+
+.person-card .person-years,.person-card .person-status { grid-column:1/-1; }
+
+/* Gallery */
+.gallery { margin:28px 0 8px; }
+.gallery-head { font:600 .8125rem/1.5 var(--sans); letter-spacing:.06em; color:var(--accent); margin:0 0 12px; }
+.gallery-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.shot { margin:0; }
+.shot img { display:block; width:100%; aspect-ratio:4/5; object-fit:cover; background:var(--soft); border:1px solid var(--line); }
+.shot figcaption { margin-top:6px; font:.8125rem/1.5 var(--sans); color:var(--muted); }
+.shot figcaption b { color:var(--ink); font-weight:600; }
+.gallery .small { margin-top:12px; }
+/* Phones */
+@media (max-width:600px) {
+ h1 { font-size:2.35rem; line-height:1.08; }
+ .eyebrow,.report-topline { letter-spacing:.04em; }
+ .report-nav { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; gap:4px 18px; }
+ .report-nav a { white-space:nowrap; }
+ .tree-row,.tree-row.spouse-group { grid-template-columns:1fr; gap:0; }
+ .spouse-group::before { display:none; }
+ .spouse-group > .person-card + .person-card { border-top:0; padding-top:2px; padding-left:28px; }
+ .spouse-group > .person-card + .person-card .person-role::before { content:"и "; color:var(--accent); }
+ .tree-row:not(.spouse-group) > .person-card + .person-card { margin-top:10px; }
+ .tree-connectors { height:18px; }
+ .tree-connectors::before { left:22px; }
+ .person-name { font-size:1.1875rem; }
+ .gallery-grid { gap:8px; }
+ .shot figcaption { font-size:.75rem; }
+ .table-wrap { overflow-x:visible; }
+ table { min-width:0; }
+ table thead { display:none; }
+ table, table tbody, table tr, table td { display:block; width:auto; }
+ table tr { padding:12px 0; border-bottom:1px solid var(--line); }
+ table td { border:0; padding:2px 0; }
+ table td.d, table td.t { width:auto; min-width:0; }
+ table td[data-label]:not([data-label=""])::before { content:attr(data-label); display:block; font:600 .6875rem/1.6 var(--sans); letter-spacing:.05em; color:var(--muted); }
+ table td:first-child { font-weight:600; }
+ .lead { padding:18px 16px; }
+ main { padding-left:16px; padding-right:16px; }
+ .report-header { padding-left:16px; padding-right:16px; }
+ .report-nav { margin-left:16px; margin-right:16px; }
+ .report-topline,.report-footer { padding-left:16px; padding-right:16px; }
+}
+@media (min-width:601px) and (max-width:900px) {
+ .gallery-grid { gap:10px; }
+}
+
+[hidden] { display:none !important; }
+.docs-group { margin-top:34px; }
+.doc { margin:18px 0 26px; display:grid; gap:8px; }
+.doc-crop { display:block; border:1px solid var(--line); background:var(--soft); cursor:zoom-in; }
+.doc-crop img { display:block; width:100%; height:auto; }
+.doc figcaption { font:.875rem/1.6 var(--sans); color:var(--muted); }
+.doc figcaption b { color:var(--ink); }
+.doc-links { display:block; margin-top:4px; }
+.doc-ref { color:var(--muted); }
+.imgref { white-space:nowrap; font:.75rem/1 var(--sans); }
+.imgref a { margin-left:6px; }
+.transcript { margin-top:6px; padding:16px 18px; background:var(--soft); border-top:2px solid var(--accent); font:.9375rem/1.65 var(--serif); }
+.transcript-title,.transcript-sub { margin:0 0 10px; font:600 .8125rem/1.5 var(--sans); color:var(--accent); letter-spacing:.04em; }
+.transcript-sub { margin-top:16px; }
+.transcript dl { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.4fr); gap:6px 16px; margin:0; }
+.transcript dt { color:var(--muted); font:.8125rem/1.5 var(--sans); }
+.transcript dd { margin:0; }
+.transcript p { margin:0 0 10px; max-width:70ch; }
+.transcript-sign { font-style:italic; }
+.lb-overlay { position:fixed; inset:0; z-index:60; display:flex; flex-direction:column; background:rgba(12,11,10,.94); padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px); }
+.lb-bar { display:flex; align-items:center; gap:8px; padding:10px 16px; color:#f1ece7; font:.875rem/1.4 var(--sans); }
+.lb-bar span { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.lb-bar button { font:600 .8125rem/1 var(--sans); padding:10px 14px; min-height:40px; border:1px solid rgba(255,255,255,.35); background:transparent; color:#f1ece7; border-radius:3px; cursor:pointer; }
+.lb-bar button:focus-visible { outline:2px solid #fff; outline-offset:2px; }
+.lb-stage { flex:1; min-height:0; overflow:auto; display:flex; align-items:center; justify-content:center; padding:0 12px 12px; -webkit-overflow-scrolling:touch; }
+.lb-stage img { max-width:100%; max-height:100%; object-fit:contain; cursor:zoom-in; background:#fff; }
+.lb-stage.zoom { display:block; }
+.lb-stage.zoom img { max-width:none; max-height:none; cursor:zoom-out; }
+@media (max-width:600px) {
+ .transcript dl { grid-template-columns:1fr; gap:0; }
+ .transcript dd { margin-bottom:8px; }
+ .transcript { padding:14px; }
+}
+
+.gap-card { grid-column:1/-1; padding:10px 14px; border:1px dashed var(--accent); background:var(--soft); color:var(--muted); font:.8125rem/1.6 var(--sans); }
+.doc-crop-small { max-width:260px; }
+.doc-crop-card { max-width:440px; }
+.gallery-grid.single { grid-template-columns:minmax(0,300px); }
+.imgref a + a { margin-left:6px; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --paper:#1d1b1a; --canvas:#131211; --ink:#ebe5e0; --muted:#a69e98; --line:#3b3633;
+ --accent:#e3989a; --accent-soft:#2d2121; --soft:#23201e;
+ --ok:#93d0a2; --ok-bg:#1c2d21; --maybe:#e5c27c; --maybe-bg:#33291a;
+ --no:#f0a0a0; --no-bg:#392325; --family:#a2bfe2; --family-bg:#1e2836; color-scheme:dark; } }
+:root[data-theme="dark"] { --paper:#1d1b1a; --canvas:#131211; --ink:#ebe5e0; --muted:#a69e98; --line:#3b3633;
+ --accent:#e3989a; --accent-soft:#2d2121; --soft:#23201e;
+ --ok:#93d0a2; --ok-bg:#1c2d21; --maybe:#e5c27c; --maybe-bg:#33291a;
+ --no:#f0a0a0; --no-bg:#392325; --family:#a2bfe2; --family-bg:#1e2836; color-scheme:dark; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#report-content">К тексту отчёта</a>
+<div class="report-shell">
+<div class="report-topline"><span>Семейная история · Исследование</span><span>Составлено в ноябре 2026</span></div>
+<header class="report-header" id="top">
+  <div class="report-intro">
+    <p class="eyebrow">Семейная история по документам</p>
+    <h1><bdi dir="auto">Неронская Елена Петровна</bdi></h1>
+    <p class="subtitle">Урождённая Пархомчик, родилась в 1907 году в местечке Пуховичи. Ветеринарный врач и партизанская связная. Здесь собраны её муж Антон Неронский, сестра Ольга, вероятный брат Пётр и род Пархомчиков местечка Пуховичи по метрикам 1799–1857 годов.</p>
+    <dl class="report-meta">
+      <div><dt>Период исследования</dt><dd>1799–1857 и 1914–1992 по документам; 1907 и позднее по сведениям семьи</dd></div>
+      <div><dt>Основания</dt><dd>Метрические книги Пуховичской церкви (НИАБ, через FamilySearch), наградной лист 1946 года и документы партизан (НАРБ, «Партизаны Беларуси»), документы ЦАМО («Память народа»), карточка Первой мировой (РГВИА), «Открытый список», статья в газете «Пухавіцкія навіны», сведения семьи</dd></div>
+    </dl>
+    <p class="report-note">Метрические книги Пуховичей после 1860 года в интернете не опубликованы. Поэтому рождение Елены, имена её родителей и связь с Пархомчиками XIX века по документам пока не проверены.</p>
+  </div>
+  <figure class="family-tree" aria-labelledby="tree-title" aria-describedby="tree-description">
+    <div class="tree-heading"><h2 id="tree-title">Семейное древо</h2><span>Пархомчики местечка Пуховичи и семья Елены</span></div>
+
+    <div class="tree-row">
+      <a class="person-card" href="#pukh-stefan">
+        <span class="person-role">Жил в местечке в 1806 году</span>
+        <bdi class="person-name" dir="auto">Стефан Пархомчик</bdi>
+        <span class="person-years">род. около 1740–1750-х</span>
+        <span class="person-status">по документу</span>
+      </a>
+    </div>
+    <div class="tree-connectors uncertain" aria-hidden="true"></div>
+    <div class="tree-row spouse-group">
+      <a class="person-card" href="#pukh-matfey">
+        <span class="person-role">Сын (по отчеству)</span>
+        <bdi class="person-name" dir="auto">Матфей Стефанов Пархомчик</bdi>
+        <span class="person-years">около 1771 — 15.09.1846</span>
+        <span class="person-status">по документу</span>
+      </a>
+      <a class="person-card" href="#pukh-matfey">
+        <span class="person-role">Жена</span>
+        <bdi class="person-name" dir="auto">Пелагея Прокопьевна</bdi>
+        <span class="person-years">упом. 1799–1819</span>
+        <span class="person-status">по документу</span>
+      </a>
+    </div>
+    <div class="tree-connectors uncertain" aria-hidden="true"></div>
+    <div class="tree-row spouse-group">
+      <a class="person-card" href="#pukh-stefan2">
+        <span class="person-role">Сын</span>
+        <bdi class="person-name" dir="auto">Стефан Матфеев Пархомчик</bdi>
+        <span class="person-years">1.08.1809 — 25.08.1857</span>
+        <span class="person-status">вероятно</span>
+      </a>
+      <a class="person-card" href="#pukh-stefan2">
+        <span class="person-role">Жена</span>
+        <bdi class="person-name" dir="auto">Евдокия (Авдотья) Демьянова</bdi>
+        <span class="person-years">упом. 1838–1856</span>
+        <span class="person-status">по документу</span>
+      </a>
+    </div>
+    <div class="tree-connectors uncertain" aria-hidden="true"></div>
+    <div class="tree-row">
+      <div class="gap-card">1860–1900: звено не найдено. Метрик Пуховичей за эти годы в интернете нет, поэтому связь отца Елены с семьями XIX века пока не установлена.</div>
+    </div>
+    <div class="tree-connectors uncertain" aria-hidden="true"></div>
+    <div class="tree-row spouse-group uncertain">
+      <a class="person-card" href="#parents">
+        <span class="person-role">Отец</span>
+        <bdi class="person-name" dir="auto">Пётр Пархомчик</bdi>
+        <span class="person-years">годы не установлены</span>
+        <span class="person-status">по отчеству и девичьей фамилии</span>
+      </a>
+      <a class="person-card" href="#parents">
+        <span class="person-role">Мать</span>
+        <bdi class="person-name" dir="auto">имя не установлено</bdi>
+        <span class="person-years">—</span>
+        <span class="person-status">не установлено</span>
+      </a>
+    </div>
+    <div class="tree-connectors" aria-hidden="true"></div>
+    <div class="tree-row spouse-group">
+      <div class="person-card subject">
+        <span class="person-role">Основной человек</span>
+        <bdi class="person-name" dir="auto">Елена Петровна Неронская (Пархомчик)</bdi>
+        <span class="person-years">9.01.1907 — дата смерти не установлена</span>
+        <span class="person-status">Сестра Ольга (1905); вероятно, брат Пётр (1896).</span>
+      </div>
+      <a class="person-card" href="#husband">
+        <span class="person-role">Муж</span>
+        <bdi class="person-name" dir="auto">Антон Сильвестрович Неронский</bdi>
+        <span class="person-years">1904 — 2.05.1944</span>
+        <span class="person-status">подтверждено</span>
+      </a>
+    </div>
+    <div class="tree-connectors" aria-hidden="true"></div>
+    <div class="tree-row">
+      <a class="person-card" href="#who">
+        <span class="person-role">Дочь</span>
+        <bdi class="person-name" dir="auto">Людмила Антоновна</bdi>
+        <span class="person-years">годы не устанавливались</span>
+        <span class="person-status">по статье</span>
+      </a>
+      <a class="person-card" href="#who">
+        <span class="person-role">Сын</span>
+        <bdi class="person-name" dir="auto">имя не установлено</bdi>
+        <span class="person-years">умер раньше матери</span>
+        <span class="person-status">по статье</span>
+      </a>
+    </div>
+    <figcaption class="tree-caption" id="tree-description">Двойная линия обозначает брак. Пунктир — звенья без прямого документа: Стефан и Матфей связаны только по отчеству, Стефан 1809 года и Стефан, умерший в 1857 году, — сопоставлением, а отец Елены с Пархомчиками XIX века не связан ничем. Нажмите на карточку, чтобы перейти к основаниям.<span>По сведениям семьи, Елена Петровна — мать жены Николая Сергеевича Медкова.</span></figcaption>
+  </figure>
+</header>
+<nav class="report-nav" aria-label="Разделы отчёта"><a href="#findings">Главное</a><a href="#who">Кто она</a><a href="#husband">Муж</a><a href="#siblings">Сестра и брат</a><a href="#pukhovichi">Пархомчики Пуховичей</a><a href="#neronskie">Неронские</a><a href="#documents">Документы</a><a href="#chronology">Хронология</a><a href="#next">Что дальше</a><a href="#sources">Источники</a></nav>
+<main id="report-content">
+
+<div class="lead" id="findings">
+  <h2>Главное</h2>
+  <ul>
+    <li><b>Елена Петровна родилась в 1907 году в местечке Пуховичи.</b> В войну, с сентября 1942 по июль 1944 года, она была связной партизанского отряда имени Калинина бригады «Правда». В 1946 году её представили к медали «Партизану Отечественной войны» II степени. <span class="tag ok">по документу</span> Точная дата рождения, 9 января 1907 года по новому стилю, известна от семьи. <span class="tag fam">по сведениям семьи</span></li>
+    <li><b>Её муж — Антон Сильвестрович Неронский (в документах также Ниронский), 1904 года рождения, врач из Пуховичей.</b> Военврач 3 ранга, начальник санитарной службы отряда имени Калинина. Погиб в бою 2 мая 1944 года у деревни Междуречье. Похоронен в Пуховичах в одной могиле с племянником Елены Николаем Линским. <span class="tag ok">подтверждено</span></li>
+    <li><b>Сестра — Ольга Петровна Линская, 1905 года рождения, тоже из Пуховичей и тоже партизанская связная.</b> Её сын Николай погиб в том же бою, что и Антон. О том, что они родные сёстры, рассказала дочь Елены в газетной статье. Документы с этим согласуются: то же отчество, то же местечко, разница в два года. <span class="tag fam">по рассказу семьи</span></li>
+    <li><b>Старший брат, по всей видимости, — Пётр Петрович Пархомчик, 1896 года рождения, из местечка Пуховичи.</b> До революции он был типографом, в 1917 году — солдатом автомобильной части Западного фронта. В 1932 году его арестовали и приговорили к пяти годам лагерей, в 1957 году реабилитировали. Совпадают фамилия, отчество и местечко, но документа о родстве нет. <span class="tag maybe">вероятно</span></li>
+    <li><b>Пархомчики жили в самом местечке Пуховичи по меньшей мере с 1799 года.</b> По метрикам прослежены четыре поколения: Стефан (жил в 1806 году) → Матфей (около 1771–1846) → Стефан (1809–1857) и его дети. Это крестьяне, прихожане Рождество-Богородицкой церкви, крепостные пуховичского помещика. <span class="tag ok">по документу</span> Связь этих семей с отцом Елены пока не установлена. <span class="tag no">не установлено</span></li>
+    <li><b>В Минской губернии были дворянские роды Неронских, один из них — с собственным гербом.</b> Принадлежал ли к ним Антон Сильвестрович, не установлено. <span class="tag no">не установлено</span></li>
+  </ul>
+</div>
+
+<aside class="evidence-guide" aria-labelledby="evidence-guide-title">
+  <h3 id="evidence-guide-title">Как читать метки надёжности</h3>
+  <div class="legend">
+    <div><span class="tag ok">подтверждено</span> — две независимые группы документов</div>
+    <div><span class="tag ok">по документу</span> — один прямой документ</div>
+    <div><span class="tag fam">по сведениям семьи</span> — рассказ родственников, документа нет</div>
+    <div><span class="tag maybe">вероятно</span> — сопоставление, прямого документа нет</div>
+    <div><span class="tag no">не установлено</span> — сведений пока недостаточно</div>
+  </div>
+</aside>
+
+<h2 id="who">Кто она</h2>
+<p>Елена Петровна Пархомчик родилась 27 декабря 1906 года по старому стилю, то есть 9 января 1907 года по новому, в местечке Пуховичи Игуменского уезда Минской губернии. <span class="tag fam">по сведениям семьи</span> Год и место рождения подтверждает наградной лист 1946 года. <a href="#source-1">[1]</a><span class="imgref"><a class="lb" href="artifacts/A-0004_award_fields.jpg" data-cap="Наградной лист 1946 года — вырезка">вырезка</a><a class="lb" href="artifacts/full/A-0004_partizany_Neronskaya_doc1_full.jpg" data-cap="Наградной лист 1946 года — полный лист">скан</a></span></p>
+<p>О её жизни рассказала дочь, Людмила Антоновна, в статье Ольги Савастюк «…родной земле» в районной газете «Пухавіцкія навіны». <a href="#source-2">[2]</a><span class="imgref"><a class="lb" href="artifacts/full/A-0002_article_full.jpg" data-cap="Статья в газете «Пухавіцкія навіны»">статья</a></span> До войны Елена Петровна работала в Минске, в Академии наук, в лаборатории физиологии. В войну была ветеринарным врачом в Пуховичах и держала связь с партизанами: оставляла в условленных местах записки и передавала медикаменты, которые давал районный ветврач И. Я. Казей. Связь с партизанами держала и её родная сестра Ольга.</p>
+<p>В 1942 году её муж Антон попал в плен под Вязьмой. Позже семья узнала, что он находится в лагере в Борисове. По словам дочери, Елена Петровна, рискуя жизнью, добилась его освобождения. Немцы поставили условие: он должен был работать у них врачом. Как только он окреп, семья ушла к партизанам. <span class="tag fam">по рассказу семьи</span></p>
+<p>Документы говорят о том же. В наградном листе написано, что «гражданка Неронская Е. П., будучи связной партизанского отряда им. Калинина бригады „Правда“ с IX-1942 г. по 5.7.1944 г., оказывала непосредственную помощь, как то доставляла медикаменты, а также давала сведения о гарнизонах противника м. Пуховичи». Адрес её семьи в 1946 году — «м-ко Пуховичи, ветучасток». <a href="#source-1">[1]</a><span class="imgref"><a class="lb" href="artifacts/A-0004_award_text.jpg" data-cap="Наградной лист 1946 года — текст представления">вырезка</a><a class="lb" href="artifacts/full/A-0004_partizany_Neronskaya_doc1_full.jpg" data-cap="Наградной лист 1946 года — полный лист">скан</a></span> <span class="tag ok">по документу</span> По словам дочери, у Елены Петровны были и другие награды — орден Отечественной войны II степени и медали. <a href="#source-2">[2]</a> <span class="tag fam">по рассказу семьи</span></p>
+<p>Весной 1944 года муж погиб, и она осталась с дочерью и сыном. Жилья в Минске у семьи не было, и в Академию она не вернулась. В Пуховичах ей выделили домик, потом она построила свой. Работала ветврачом, к ней обращались в любое время суток, её отмечали в числе лучших ветврачей республики. В марте 1960 года ей присвоили звание «Заслуженный ветврач БССР» — удостоверение № 3. В домашнем архиве дочери хранятся Почётная грамота Верховного Совета БССР, грамоты Министерства сельского хозяйства БССР и облисполкома. Дочь окончила политехнический институт. <a href="#source-2">[2]</a> <span class="tag fam">по рассказу семьи</span></p>
+<p>По словам дочери, «в один год она потеряла сына, племянника и зятя». Кто именно эти люди и в каком году это случилось, не установлено. Один из племянников, Пётр Линский, погиб в катастрофе в 1957 году. <a href="#source-6">[6]</a> В зрелом возрасте Елена Петровна стала инвалидом второй группы по зрению. Летом к ней приезжала дочь, на зиму увозила её в столицу. «И каким радостным всегда было возвращение в Пуховичи», — заканчивается статья. Дата смерти Елены Петровны не установлена.</p>
+
+<figure class="gallery" aria-labelledby="gallery-title">
+  <figcaption class="gallery-head" id="gallery-title">Елена Петровна</figcaption>
+  <div class="gallery-grid single">
+    <figure class="shot"><a class="lb" href="photos/01_Elena_Petrovna_newspaper.jpg" data-cap="Елена Петровна Неронская, снимок из газеты «Пухавіцкія навіны»"><img src="photos/01_Elena_Petrovna_newspaper.jpg" alt="Елена Петровна Неронская в пожилом возрасте, в очках, с цветком в руках" loading="lazy"></a><figcaption><b>В пожилом возрасте</b> · снимок из газетной статьи</figcaption></figure>
+  </div>
+  <p class="small">Снимок переснят с газетной страницы; сверху он обрезан так в самой газете.</p>
+</figure>
+
+<h2 id="husband">Муж — Антон Сильвестрович Неронский</h2>
+<p>Антон Сильвестрович родился в 1904 году в местечке Пуховичи. До войны работал там врачом. В 1932 году Минский райвоенкомат призвал его в армию, звание — военврач 3 ранга. С 15 сентября 1943 года он в партизанском отряде имени Калинина. Погиб 2 мая 1944 года и был похоронен у деревни Междуречье. В графе о родственниках записано: «Минская обл., Пуховичская райветлечебница, жена — Ниронская Елена Петровна». <a href="#source-3">[3]</a><span class="imgref"><a class="lb" href="artifacts/A-0008_donesenie_17-21.jpg" data-cap="Донесение о потерях — строки 17–21">вырезка</a><a class="lb" href="artifacts/full/A-0008_pamyat_Nironsky_donesenie_full.jpg" data-cap="Донесение о потерях — полный лист">скан</a></span> <span class="tag ok">по документу</span></p>
+<p>В 1946 году Главное управление кадров исключило его из списков как погибшего. В приказе он назван начальником санитарной службы партизанского отряда, а родственницей указана «НИРОНСКАЯ Елена Петровна». <a href="#source-4">[4]</a><span class="imgref"><a class="lb" href="artifacts/A-0006_prikaz_p3.jpg" data-cap="Приказ ГУК 1946 года — пункт 3">вырезка</a><a class="lb" href="artifacts/full/A-0006_pamyat_Nironsky_prikaz_full.jpg" data-cap="Приказ ГУК 1946 года — полный лист">скан</a></span> По рассказу дочери, он погиб «при выполнении боевого задания». <a href="#source-2">[2]</a></p>
+<p>Позже его перезахоронили на кладбище в Пуховичах. По паспорту воинского захоронения 1992 года, в этой могиле лежат двое: Неронский Антон Сильвестрович, 1904, и Линский Николай Иосифович, 1925, — сын сестры Елены. Они погибли в одном бою, оба значатся в одном донесении о потерях отряда. <a href="#source-5">[5]</a><span class="imgref"><a class="lb" href="artifacts/A-0007_burial_table.jpg" data-cap="Паспорт захоронения 1992 года — сведения о погребённых">вырезка</a><a class="lb" href="artifacts/full/A-0007_pamyat_Neronsky_burial_list_p2.jpg" data-cap="Паспорт захоронения 1992 года — лист 2">скан</a></span> <span class="tag ok">подтверждено</span></p>
+<p class="small">Фамилия в документах пишется по-разному: Ниронский (донесение 1944, приказ 1946) и Неронский (паспорт захоронения 1992, газета). Отчество — Сильвестрович и Селиверстович. Это одно и то же имя в разной записи.</p>
+
+<h2 id="siblings">Сестра Ольга и брат Пётр</h2>
+<h3 id="parents">Родители</h3>
+<p>Отец Елены — Пётр Пархомчик: так следует из её отчества и девичьей фамилии. Имя матери, годы жизни родителей и дата их брака пока не найдены. Записи о рождении Елены и её сестры хранятся в метрических книгах Пуховичской церкви за 1905–1906 годы в архиве в Минске, онлайн их нет. <span class="tag no">не установлено</span></p>
+<h3>Ольга Петровна Линская (1905)</h3>
+<p>В 1980 году Ольга Петровна подала документы о признании её участницей партизанского движения, и они сохранились. По личному листку: родилась в 1905 году в местечке Пуховичи, белоруска, телефонистка, до войны — домохозяйка. С мая 1942 по май 1943 года связная отряда имени газеты «Правда», с мая 1943 по июль 1944 года — отряда имени Чапаева бригады «Пламя». <a href="#source-6">[6]</a><span class="imgref"><a class="lb" href="artifacts/A-0005_lichny_listok_p1.jpg" data-cap="Личный листок О. П. Линской, 1980 — лицевая сторона">вырезка</a><a class="lb" href="artifacts/full/A-0005_Linskaya_doc_04_full.jpg" data-cap="Личный листок О. П. Линской, 1980 — лист целиком">скан</a></span></p>
+<p>В боевой характеристике сказано, что она ходила во вражеские гарнизоны, распространяла листовки, собирала сведения в гарнизоне Марьиной Горки, приносила в отряд боеприпасы, винтовочные затворы и медикаменты. Её муж Иосиф Яковлевич Линский был связным того же отряда и умер в 1949 году. Сын Николай Иосифович, партизан, погиб 2 мая 1944 года. Сын Пётр Иосифович погиб в катастрофе в 1957 году. Её награды — медаль «За доблестный труд» (1949), юбилейные медали «30 лет Победы» (1975) и «60 лет Вооружённых сил СССР» (1979). В 1980 году Ольга Петровна жила одна, пенсионеркой, в Пуховичах. <a href="#source-6">[6]</a><span class="imgref"><a class="lb" href="artifacts/A-0005_lichny_listok_p2.jpg" data-cap="Личный листок О. П. Линской, 1980 — оборот">вырезка</a><a class="lb" href="artifacts/full/A-0005_Linskaya_doc_05_full.jpg" data-cap="Личный листок О. П. Линской, 1980 — оборот целиком">скан</a></span> <span class="tag ok">по документу</span></p>
+<p class="small">В газетной статье сестра названа «Ольга Ленская», в документах — Линская. По документам Николай Линский был партизаном отряда имени Чапаева, а в донесении о потерях он записан в отряд имени Калинина, рядом с Антоном Неронским.</p>
+<h3>Пётр Петрович Пархомчик (1896), по всей видимости — брат</h3>
+<p>В картотеке потерь Первой мировой войны сохранилась карточка: «Пархомчикъ Петръ Петровичъ», холост, 21 год, русский, православный, рядовой Правления автомобильной части Западного фронта. Место рождения — Минская губерния, Игуменский уезд, Пуховичская волость. Занятие до войны — «типографъ». 2 ноября 1917 года он поступил в госпиталь № 17 Всероссийского земского союза в Орле с неврозом сердца и ослаблением зрения. <a href="#source-7">[7]</a><span class="imgref"><a class="lb" href="artifacts/full/A-0013_gwar_Parkhomchik_PP_1917_card.jpg" data-cap="Карточка 1917 года — Пархомчик Пётр Петрович">карточка</a></span> <span class="tag ok">по документу</span></p>
+<p>В базе «Открытый список» есть Пархомчик Пётр Петрович, 1896 года рождения, уроженец местечка Пуховичи, крестьянин-единоличник. 18 мая 1932 года его арестовали по статье 58 («связь с контрреволюционной организацией, антисоветская агитация»). 23 сентября 1932 года Коллегия ОГПУ приговорила его к пяти годам лагерей. Реабилитирован 19 декабря 1957 года. <a href="#source-8">[8]</a> Год рождения, местечко и отчество в обеих записях совпадают, так что это, по-видимому, один человек. Брат ли он Елены, по документам не доказано. <span class="tag maybe">вероятно</span></p>
+
+<h2 id="pukhovichi">Пархомчики местечка Пуховичи</h2>
+<p>Фамилия Пархомчик (также Пархимчик) — местная для нынешнего Пуховичского района. В XX веке Пархомчики жили в деревнях Синча, Боровая Слобода, Очижа и в самом местечке Пуховичи. <a href="#source-11">[11]</a> Из местечка в Первую мировую ушли на фронт Пётр Петрович и трое братьев Ефимовичей. Виктор Ефимович пропал без вести 30 августа 1914 года, Павел Ефимович — 10 марта 1915 года. Василий Ефимович был ранен 11 августа 1915 года под местечком Визьма. Это возможные двоюродные братья Елены, но их связь с ней не проверена. Их отца Ефима в метриках Пуховичей найти не удалось. <a href="#source-10">[10]</a></p>
+<p>Метрические книги Пуховичской Рождество-Богородицкой церкви сохранились и сфотографированы за 1798–1860 годы. В них по записям 1799–1857 годов видны несколько семей Пархомчиков из самого местечка. <a href="#source-9">[9]</a> Записи прочитаны по сканам, все они перечислены в разделе «Документы».</p>
+<h3 id="pukh-stefan">Стефан Пархомчик (жил в 1806 году)</h3>
+<p>29 июля 1806 года «того же местечка Рождество-Богородичной церкви прихожанина Стефана Пархомчика девица Евдокия» вышла замуж за Феодора Павловича Кавела. Возможно, это та же Евдокия, дочь «Стефана Пархомчикова», которая в 1815 году, 27 лет, вышла замуж за Андрея Самсонова Щучку — по индексу FamilySearch, скан не читался. Это самый ранний найденный Пархомчик местечка. Его сыновьями, судя по отчествам, были Матфей и Тимофей Стефановичи. Прямой записи об этом нет. <span class="tag ok">по документу</span> <span class="tag maybe">отцовство — вероятно</span><span class="imgref"><a class="lb" href="artifacts/A-0016_1806_Evdokia_marriage_crop.jpg" data-cap="1806, брак Евдокии Пархомчик — вырезка">вырезка</a><a class="lb" href="artifacts/full/A-0016_1806_DGS7766723_img272_full.jpg" data-cap="1806, брак Евдокии Пархомчик — разворот">скан</a></span></p>
+<h3 id="pukh-matfey">Матфей Стефанов (около 1771–1846) и Пелагея Прокопьевна</h3>
+<p>Житель местечка Пуховичи Матфей (в записях также Матеуш и Мафей) Пархомчик был женат на Пелагее Прокопьевне. В метриках найдены их дети: Параскева (10 августа 1799), Стефан (1 августа 1809) и Игнатий (20 декабря 1819). По индексу, у них был и сын Василий, умерший двухлетним в 1815 году. Матфей Стефанов Пархомчик умер 15 сентября 1846 года, его возраст записан как 75 лет. <span class="tag ok">по документу</span><span class="imgref"><a class="lb" href="artifacts/A-0016_1799_Paraskeva_crop.jpg" data-cap="1799, рождение Параскевы — вырезка">1799</a><a class="lb" href="artifacts/A-0016_1809_Stefan_birth_crop.jpg" data-cap="1809, рождение Стефана — вырезка">1809</a><a class="lb" href="artifacts/A-0016_1819_Ignat_crop.jpg" data-cap="1819, рождение Игнатия — вырезка">1819</a><a class="lb" href="artifacts/A-0016_1846_Matfey_death_crop.jpg" data-cap="1846, смерть Матфея Стефанова — вырезка">1846</a></span></p>
+<h3 id="pukh-stefan2">Стефан Матфеев (1809–1857) и Евдокия Демьянова</h3>
+<p>Сын Матфея Стефан женился на Евдокии (Авдотье) Демьяновне. Их дети: Ефросиния (20 января 1838), Екатерина (11 декабря 1851) и Гавриил (8 февраля 1856). В записи 1856 года Стефан назван крестьянином пуховичского помещика Петра Ф…беса (фамилия читается неуверенно). Он умер 25 августа 1857 года, возраст записан как 44 года. <span class="tag ok">по документу</span><span class="imgref"><a class="lb" href="artifacts/A-0016_1838_Efrosiniya_crop.jpg" data-cap="1838, рождение Ефросинии — вырезка">1838</a><a class="lb" href="artifacts/A-0015_1851_Ekaterina_crop.jpg" data-cap="1851, рождение Екатерины — вырезка">1851</a><a class="lb" href="artifacts/A-0015_1856_Gavriil_crop.jpg" data-cap="1856, рождение Гавриила — вырезка">1856</a><a class="lb" href="artifacts/A-0015_1857_Stefan_death_crop.jpg" data-cap="1857, смерть Стефана Матфеева — вырезка">1857</a></span></p>
+<p>То, что Стефан, родившийся у Матфея в 1809 году, и Стефан Матфеев, умерший в 1857 году, — один человек, следует из сопоставления. Местечко то же, отчество совпадает с именем отца, другого Стефана Матфеевича в местечке нет. Возраст при смерти записан на четыре года меньше, такое в метриках встречается часто. <span class="tag maybe">вероятно</span></p>
+<h3>Другие семьи Пархомчиков местечка</h3>
+<ul>
+  <li><b>Тимофей Стефанович</b>, судя по отчеству — брат Матфея. Крестьянин того же помещика. Его сын Константин умер двухлетним в 1835 году, сын Артем родился 22 марта 1842 года от жены Марии Симеоновны.<span class="imgref"><a class="lb" href="artifacts/A-0016_1835_Konstantin_Timofey_crop.jpg" data-cap="1835, смерть Константина, сына Тимофея — вырезка">1835</a><a class="lb" href="artifacts/A-0016_1842_Artem_Timofey_crop.jpg" data-cap="1842, рождение Артема — вырезка">1842</a></span></li>
+  <li><b>Феодосий Семенов</b>, около 1826 года рождения. В 1852 году, по индексу, женился на Фекле Григорьевне Авсяник. Дочери Марфа (1854) и Марья (4 июля 1857).<span class="imgref"><a class="lb" href="artifacts/A-0015_1857_Marya_Feodosiy_crop.jpg" data-cap="1857, рождение Марьи, дочери Феодосия — вырезка">1857</a></span></li>
+  <li><b>Ананий Артемов</b> — из деревни Слобода того же прихода: дочь Юстина (умерла в 1851 году), сын Мартиниан (1854).</li>
+  <li><b>Тимофей Пархомчик и Евдокия Онисимовна</b> — сын Иоан родился 30 марта 1806 года (по индексу). Тот ли это Тимофей Стефанович, неизвестно: в 1842 году его жена — Мария Симеоновна.</li>
+  <li><b>Артем Пархомчик и Ксения</b> — дочь Наталия родилась 31 августа 1799 года, её запись стоит на одной странице с записью о Параскеве, дочери Матфея (по индексу).</li>
+</ul>
+<p>От какой из этих семей происходит отец Елены Пётр, неизвестно. Для этого нужны метрики 1860–1907 годов, а они есть только в архиве. <span class="tag no">не установлено</span></p>
+
+<h2 id="neronskie">Неронские</h2>
+<p>Отец Антона — Сильвестр (Селиверст) Неронский, это известно по отчеству. В «Алфавитном списке дворянским родам Минской губернии» 1903 года фамилия Неронский встречается дважды, одна из записей — с предикатом «с Неронских». <a href="#source-12">[12]</a> В гербовнике шляхты Рогачёвского уезда, которая подтверждала дворянство в XIX веке, род Неронских (Nierońscy) указан с собственным гербом («własnego»), но описания герба там нет. <a href="#source-13">[13]</a></p>
+<p>Ни в одном найденном документе об Антоне Сильвестровиче не сказано о его происхождении. Принадлежала ли его семья к этим дворянским родам, не установлено. Для проверки нужны запись о его рождении в 1904 году и дело о дворянстве Неронских в Национальном историческом архиве Беларуси. <span class="tag no">не установлено</span></p>
+
+<h2 id="documents">Документы в изображениях</h2>
+<p>Под каждой вырезкой — ссылка на полный лист (открывается здесь же; кнопка «Крупнее» показывает его в натуральную величину) и на документ в архивной базе. Нажмите на вырезку, чтобы рассмотреть её.</p>
+
+<h3 class="docs-group">Елена, её муж и сестра: 1944–1992</h3>
+<figure class="doc" id="doc-award"><a class="lb doc-crop" href="artifacts/A-0004_award_fields.jpg" data-cap="Наградной лист 1946 года — графы 1–12"><img src="artifacts/A-0004_award_fields.jpg" alt="Наградной лист на Неронскую Елену Петровну, графы 1–12" loading="lazy"></a><a class="lb doc-crop" href="artifacts/A-0004_award_text.jpg" data-cap="Наградной лист 1946 года — текст представления"><img src="artifacts/A-0004_award_text.jpg" alt="Наградной лист, текст представления и подпись" loading="lazy"></a><figcaption><b>Наградной лист, 23 декабря 1946 года.</b> Представление Елены Петровны к медали «Партизану Отечественной войны» II степени.<span class="doc-links"><a class="lb" href="artifacts/full/A-0004_partizany_Neronskaya_doc1_full.jpg" data-cap="Наградной лист 1946 года — полный лист">Полный лист</a> · <a href="https://partizany.by/partisans/101111/" target="_blank" rel="noopener">«Партизаны Беларуси»</a> · <span class="doc-ref">НАРБ, л. 88</span></span></figcaption>
+<div class="transcript"><p class="transcript-title">Расшифровка</p><dl>
+<dt>1. Фамилия, имя и отчество</dt><dd>Неронская Елена Петровна</dd>
+<dt>2. Звание</dt><dd>не имеет</dd>
+<dt>3. Должность, часть</dt><dd>связная партизанского отряда им. Калинина п/бригада «Правда»</dd>
+<dt>Представляется к</dt><dd>медали «Партизану Отечественной войны» II степ.</dd>
+<dt>4. Год рождения</dt><dd>1907</dd>
+<dt>5. Национальность</dt><dd>белоруска</dd>
+<dt>6. Партийность</dt><dd>беспартийная</dd>
+<dt>7. Участие в Отечественной войне</dt><dd>оказывала помощь п/отряду</dd>
+<dt>8. Ранения и контузии</dt><dd>не имеет</dd>
+<dt>9. С какого времени в Красной Армии</dt><dd>не служила</dd>
+<dt>10. С какого времени в партизанском отряде</dt><dd>с IX-1942 г. по 5.7.1944 г.</dd>
+<dt>11. Чем ранее награждена</dt><dd>не награждалась</dd>
+<dt>12. Адрес места рождения и семьи</dt><dd>БССР, Минская область, Пуховичский район, м-ко Пуховичи, ветучасток</dd>
+</dl><p class="transcript-sub">Краткое изложение заслуг</p>
+<p>Гражданка Неронская Е. П., будучи связной партизанского отряда им. Калинина бригады «Правда» с IX-1942 г. по 5.7.1944 г., оказывала непосредственную помощь, как то доставляла медикаменты, а также давала сведения о гарнизонах противника м. Пуховичи. Этим самым помогала быстрейшему разгрому немецко-фашистских захватчиков.</p>
+<p>Гражданка Неронская Е. П. достойна награждения правительственной наградой медалью «Партизану Отечественной войны» II степени за оказанную активную помощь партизанам по разгрому немецко-фашистской армии.</p>
+<p class="transcript-sign">Секретарь Пуховичского РК КП(б)Б [подпись] /[предположительно: Стельмах]/. 23 декабря 1946 г.</p></div></figure>
+
+<figure class="doc" id="doc-donesenie"><a class="lb doc-crop" href="artifacts/A-0008_donesenie_17-21.jpg" data-cap="Донесение о потерях — строки 17–21"><img src="artifacts/A-0008_donesenie_17-21.jpg" alt="Донесение о потерях отряда им. Калинина, строки 17–21" loading="lazy"></a><figcaption><b>Донесение о безвозвратных потерях партизанского отряда имени Калинина, 1944 год.</b> № 17 — Линский Николай Иосифович, 1925, м. Пуховичи, учащийся, в отряде с 8.9.43, погиб 2.5.44 у д. Междуречье; отец Линский Иосиф Яковлевич. № 21 — военврач 3 ранга Ниронский Антон Сильвестрович, 1904, м. Пуховичи, врач, призван Минским РВК в 1932 году, в отряде с 15.9.43, погиб 2.5.44; «Минская обл., Пуховичская райветлечебница, жена — Ниронская Елена Петровна».<span class="doc-links"><a class="lb" href="artifacts/full/A-0008_pamyat_Nironsky_donesenie_full.jpg" data-cap="Донесение о потерях — полный лист">Полный лист</a> · <a href="https://pamyat-naroda.ru/heroes/memorial-chelovek_donesenie56643761/" target="_blank" rel="noopener">«Память народа»</a> · <span class="doc-ref">ЦАМО</span></span></figcaption></figure>
+
+<figure class="doc" id="doc-prikaz"><a class="lb doc-crop" href="artifacts/A-0006_prikaz_p3.jpg" data-cap="Приказ ГУК 1946 года — пункт 3"><img src="artifacts/A-0006_prikaz_p3.jpg" alt="Приказ ГУК 1946 года, пункт 3 о Ниронском" loading="lazy"></a><figcaption><b>Приказ Главного управления кадров № 02706 от 6 декабря 1946 года, пункт 3.</b> «Военврач 3 ранга НИРОНСКИЙ Антон Селиверстович — начальник санитарной службы партизанского отряда штаба партизанского движен. Белоруссии. Убит в бою 2.5.44 г. 1904 г. Родственница НИРОНСКАЯ Елена Петровна — Минская обл.»<span class="doc-links"><a class="lb" href="artifacts/full/A-0006_pamyat_Nironsky_prikaz_full.jpg" data-cap="Приказ ГУК 1946 года — полный лист">Полный лист</a> · <a href="https://pamyat-naroda.ru/heroes/memorial-chelovek_prikaz74901427/" target="_blank" rel="noopener">«Память народа»</a> · <span class="doc-ref">ЦАМО, ф. 33, оп. 563783, д. 43</span></span></figcaption></figure>
+
+<figure class="doc" id="doc-burial"><a class="lb doc-crop" href="artifacts/A-0007_burial_table.jpg" data-cap="Паспорт захоронения 1992 года — сведения о погребённых"><img src="artifacts/A-0007_burial_table.jpg" alt="Паспорт воинского захоронения: Неронский Антон Сильвестрович и Линский Николай Иосифович" loading="lazy"></a><a class="lb doc-crop doc-crop-small" href="artifacts/A-0007_burial_photo.jpg" data-cap="Фотография памятника из паспорта захоронения"><img src="artifacts/A-0007_burial_photo.jpg" alt="Памятник на могиле в Пуховичах" loading="lazy"></a><figcaption><b>Паспорт воинского захоронения, Пуховичи, 15 августа 1992 года.</b> Захоронено двое, оба известны: Неронский Антон Сильвестрович, 1904, и Линский Николай Иосифович, 1925. Шефствует Пуховичская средняя школа. Справа — снимок памятника из паспорта: одна стела с двумя именами.<span class="doc-links"><a class="lb" href="artifacts/full/A-0007_pamyat_Neronsky_burial_list_p2.jpg" data-cap="Паспорт захоронения 1992 года — лист 2">Полный лист</a> · <a href="https://pamyat-naroda.ru/heroes/memorial-chelovek_zahoronenie261841908/" target="_blank" rel="noopener">«Память народа»</a> · <span class="doc-ref">ЦАМО, поименные списки захоронений</span></span></figcaption></figure>
+
+<figure class="doc" id="doc-linskaya"><a class="lb doc-crop" href="artifacts/A-0005_lichny_listok_p1.jpg" data-cap="Личный листок О. П. Линской — лицевая сторона"><img src="artifacts/A-0005_lichny_listok_p1.jpg" alt="Личный листок по учёту партизанских кадров на Линскую Ольгу Петровну" loading="lazy"></a><a class="lb doc-crop" href="artifacts/A-0005_lichny_listok_p2.jpg" data-cap="Личный листок О. П. Линской — оборот"><img src="artifacts/A-0005_lichny_listok_p2.jpg" alt="Оборот личного листка: награды, семья, боевая характеристика" loading="lazy"></a><figcaption><b>Личный листок по учёту партизанских кадров на Линскую Ольгу Петровну, 1980 год.</b> «1905 г., Минской обл. м. Пуховичи Пуховичского р-на»; на обороте — награды, семья («муж Линский Иосиф Яковлевич… умер 1949 г.; сын Николай Иосифович… погиб 2 мая 1944 г.; сын Пётр Иосифович трагически погиб при катастрофе 1957 г.») и боевая характеристика.<span class="doc-links"><a class="lb" href="artifacts/full/A-0005_Linskaya_doc_04_full.jpg" data-cap="Личный листок — лицевая сторона целиком">Лист 1</a> · <a class="lb" href="artifacts/full/A-0005_Linskaya_doc_05_full.jpg" data-cap="Личный листок — оборот целиком">Лист 2</a> · <a href="https://partizany.by/partisans/250287/" target="_blank" rel="noopener">«Партизаны Беларуси»</a> · <span class="doc-ref">НАРБ, лл. 161–161 об.</span></span></figcaption></figure>
+
+<figure class="doc" id="doc-article"><a class="lb doc-crop" href="artifacts/full/A-0002_article_full.jpg" data-cap="Статья «…родной земле», «Пухавіцкія навіны»"><img src="artifacts/full/A-0002_article_full.jpg" alt="Газетная статья о Елене Петровне Неронской с её фотографией" loading="lazy"></a><figcaption><b>Статья Ольги Савастюк «…родной земле», газета «Пухавіцкія навіны».</b> Записана со слов дочери, Людмилы Антоновны. Дата выпуска не установлена; на той же странице есть заметка о 2006 годе.<span class="doc-links"><span class="doc-ref">Фото страницы — семейный архив</span></span></figcaption></figure>
+
+<h3 class="docs-group">Пётр Петрович Пархомчик, 1917</h3>
+<figure class="doc" id="doc-gwar"><a class="lb doc-crop doc-crop-card" href="artifacts/full/A-0013_gwar_Parkhomchik_PP_1917_card.jpg" data-cap="Карточка 1917 года — Пархомчик Пётр Петрович"><img src="artifacts/full/A-0013_gwar_Parkhomchik_PP_1917_card.jpg" alt="Уведомление о приёме больного: Пархомчик Пётр Петрович, 1917" loading="lazy"></a><figcaption><b>Уведомление о приёме больного, поступившего с театра военных действий, 2 ноября 1917 года.</b> Госпиталь № 17 Всероссийского земского союза, Орёл.<span class="doc-links"><a href="https://gwar.mil.ru/heroes/chelovek_gospital24355199/" target="_blank" rel="noopener">«Памяти героев Великой войны»</a> · <span class="doc-ref">РГВИА, картотека бюро учёта потерь, ящик 2802-П</span></span></figcaption>
+<div class="transcript"><p class="transcript-title">Расшифровка</p><dl>
+<dt>Фамилия, имя, отчество</dt><dd>Пархомчикъ Петръ Петровичъ</dd>
+<dt>Семейное положение</dt><dd>холостъ</dd>
+<dt>Возраст</dt><dd>21</dd>
+<dt>Народность, вероисповедание</dt><dd>русскій, православный</dd>
+<dt>Войсковая часть, должность</dt><dd>рядовой въ Правленіи Автомобильной части Западнаго фронта</dd>
+<dt>Место родины</dt><dd>губ. Минск., у. Игуменск., Пуховическ. в[олость]</dd>
+<dt>Местожительство перед войной</dt><dd>родина</dd>
+<dt>Занятие перед войной</dt><dd>типографъ</dd>
+<dt>Болезнь</dt><dd>невроз сердца, понижение зрения; заб[олел] 26/X въ Минске</dd>
+<dt>Принят</dt><dd>2 ноября 1917</dd>
+<dt>Откуда прибыл</dt><dd>изъ Минска, сан[итарный] п[оезд] 1036</dd>
+</dl></div></figure>
+
+<h3 class="docs-group">Метрические книги Пуховичской Рождество-Богородицкой церкви, 1799–1857</h3>
+<p class="small">Это копии метрических книг, которые церкви ежегодно отсылали в консисторию; они хранятся в Национальном историческом архиве Беларуси (ф. 136, оп. 13) и сфотографированы FamilySearch. Ссылки на FamilySearch открываются после бесплатной регистрации. Квадратные скобки — неуверенное чтение.</p>
+<figure class="doc" id="doc-1799"><a class="lb doc-crop" href="artifacts/A-0016_1799_Paraskeva_crop.jpg" data-cap="1799 — рождение Параскевы"><img src="artifacts/A-0016_1799_Paraskeva_crop.jpg" alt="Метрическая запись 1799 года о рождении Параскевы Пархомчик" loading="lazy"></a><figcaption><b>1799, 10 августа — рождение Параскевы.</b> «У жителя местечка Пуховичь церкви Рождество-Богородицкой прихожанина Матфея Пархомчика от первобрачного его жены Пелагеи родися дочь Параскева, которая крещена той церкви священником Василием Юревичем». Восприемники — жители местечка Андрей Ков[аль] и жена Андрея М[…] Улиянна.<span class="doc-links"><a class="lb" href="artifacts/full/A-0016_1799_DGS7766725_img834_full.jpg" data-cap="1799 — разворот">Разворот</a> · <a href="https://www.familysearch.org/ark:/61903/3:1:3Q9M-CSM4-8N9Z" target="_blank" rel="noopener">FamilySearch</a> · <span class="doc-ref">НИАБ, ф. 136, оп. 13, д. 193, л. 97 об.</span></span></figcaption></figure>
+<figure class="doc" id="doc-1806"><a class="lb doc-crop" href="artifacts/A-0016_1806_Evdokia_marriage_crop.jpg" data-cap="1806 — брак Евдокии Пархомчик"><img src="artifacts/A-0016_1806_Evdokia_marriage_crop.jpg" alt="Метрическая запись 1806 года о браке Евдокии, дочери Стефана Пархомчика" loading="lazy"></a><figcaption><b>1806, июль — брак Евдокии, дочери Стефана Пархомчика.</b> «По исполнении всех по тому браку относящихся обстоятельств местечка Пуховичь Рождество-Богородичной церкви прихожанин Феодор Кавел, холостой, Павлов сын, с дочерью того же местечка Рождество-Богородичной церкви прихожанина Стефана Пархомчика девицею Евдокиею первым браком обвенчан». По индексу FamilySearch — 29 июля, жениху 19 лет, невесте 16.<span class="doc-links"><a class="lb" href="artifacts/full/A-0016_1806_DGS7766723_img272_full.jpg" data-cap="1806 — разворот">Разворот</a> · <a href="https://www.familysearch.org/ark:/61903/3:1:3Q9M-CSMZ-Z435-B" target="_blank" rel="noopener">FamilySearch</a> · <span class="doc-ref">НИАБ, ф. 136, оп. 13, д. 200, л. 76 об.</span></span></figcaption></figure>
+<figure class="doc" id="doc-1809"><a class="lb doc-crop" href="artifacts/A-0016_1809_Stefan_birth_crop.jpg" data-cap="1809 — рождение Стефана"><img src="artifacts/A-0016_1809_Stefan_birth_crop.jpg" alt="Метрическая запись 1809 года о рождении Стефана, сына Матеуша Пархомчика" loading="lazy"></a><figcaption><b>1809, 1 августа — рождение Стефана.</b> «Жителя местечка Пуховичь Рождество-Богородичной приходской церкви Матеуша Пархомчика и его первобрачной жены Пелагеи родился сын Стефан, который молитвован и крещен той церкви священником Стефаном […]вичем; при сем требе был дьячок Иван [Шегер]». Восприемники — жители местечка, имена читаются неуверенно.<span class="doc-links"><a class="lb" href="artifacts/full/A-0016_1809_DGS7766723_img680_full.jpg" data-cap="1809 — разворот">Разворот</a> · <a href="https://www.familysearch.org/ark:/61903/3:1:3Q9M-CSMZ-Z4S2-8" target="_blank" rel="noopener">FamilySearch</a> · <span class="doc-ref">НИАБ, ф. 136, оп. 13, д. 206</span></span></figcaption></figure>
+<figure class="doc" id="doc-1819"><a class="lb doc-crop" href="artifacts/A-0016_1819_Ignat_crop.jpg" data-cap="1819 — рождение Игнатия"><img src="artifacts/A-0016_1819_Ignat_crop.jpg" alt="Метрическая запись 1819 года о рождении Игнатия, сына Матфея Пархомчика" loading="lazy"></a><figcaption><b>1819, 20 декабря — рождение Игнатия.</b> «Местечка Пуховичь жителя Рождество-Богородичной церкви прихожанина Мафея Пархомчика и его первобрачной жены Пелагии Прокоповны родился сын Игнатий, который молитвован и крещен той церкви священником…».<span class="doc-links"><a class="lb" href="artifacts/full/A-0016_1819_DGS7766722_img813_full.jpg" data-cap="1819 — разворот">Разворот</a> · <a href="https://www.familysearch.org/ark:/61903/3:1:3Q9M-CSM4-4TR" target="_blank" rel="noopener">FamilySearch</a> · <span class="doc-ref">НИАБ, ф. 136, оп. 13, д. 218а, л. 62 об.</span></span></figcaption></figure>
+<figure class="doc" id="doc-1835"><a class="lb doc-crop" href="artifacts/A-0016_1835_Konstantin_Timofey_crop.jpg" data-cap="1835 — смерть Константина, сына Тимофея"><img src="artifacts/A-0016_1835_Konstantin_Timofey_crop.jpg" alt="Метрическая запись 1835 года о смерти Константина, сына Тимофея Стефанова Пархомчика" loading="lazy"></a><figcaption><b>1835, декабрь — смерть Константина.</b> «Местечка Пуховичь крестьянина помещика Петра Ф[…] Тимофея Стефанова Пархомчика сын Константин» — 2 года.<span class="doc-links"><a class="lb" href="artifacts/full/A-0016_1835_DGS7767961_img630_full.jpg" data-cap="1835 — разворот">Разворот</a> · <a href="https://www.familysearch.org/ark:/61903/3:1:3Q9M-CSMZ-7HDZ" target="_blank" rel="noopener">FamilySearch</a> · <span class="doc-ref">НИАБ, ф. 136, оп. 13, д. 441а</span></span></figcaption></figure>
+<figure class="doc" id="doc-1838"><a class="lb doc-crop" href="artifacts/A-0016_1838_Efrosiniya_crop.jpg" data-cap="1838 — рождение Ефросинии"><img src="artifacts/A-0016_1838_Efrosiniya_crop.jpg" alt="Метрическая запись 1838 года о рождении Ефросинии, дочери Стефана Матвеева Пархомчика" loading="lazy"></a><figcaption><b>1838, 20 января — рождение Ефросинии.</b> «Местечка Пуховичь крестьянин Стефан Матвеев Пархомчик и законная его жена Евдокия Демьяновна, оба православного вероисповедания».<span class="doc-links"><a class="lb" href="artifacts/full/A-0016_1838_DGS7766775_img761_full.jpg" data-cap="1838 — разворот">Разворот</a> · <a href="https://www.familysearch.org/ark:/61903/3:1:3Q9M-CSM4-ZSM9-S" target="_blank" rel="noopener">FamilySearch</a> · <span class="doc-ref">НИАБ, ф. 136, оп. 13, д. 123, л. 613 об.</span></span></figcaption></figure>
+<figure class="doc" id="doc-1842"><a class="lb doc-crop" href="artifacts/A-0016_1842_Artem_Timofey_crop.jpg" data-cap="1842 — рождение Артема"><img src="artifacts/A-0016_1842_Artem_Timofey_crop.jpg" alt="Метрическая запись 1842 года о рождении Артема, сына Тимофея Стефановича Пархомчика" loading="lazy"></a><figcaption><b>1842, 22 марта — рождение Артема.</b> «Местечка Пуховичь крестьянина Тимофея Стефановича Пархомчика и законной его жены Марии Симеоновой, оба православного исповедания». Восприемники — крестьяне местечка Леонтий Антонов Романов[ич] и жена Ивана Григорьева [Чукаса] Ева Семенова.<span class="doc-links"><a class="lb" href="artifacts/full/A-0016_1842_DGS7766715_img652_full.jpg" data-cap="1842 — разворот">Разворот</a> · <a href="https://www.familysearch.org/ark:/61903/3:1:3Q9M-CSM4-6BF4" target="_blank" rel="noopener">FamilySearch</a> · <span class="doc-ref">НИАБ, ф. 136, оп. 13, д. 255, л. 244 об.</span></span></figcaption></figure>
+<figure class="doc" id="doc-1846"><a class="lb doc-crop" href="artifacts/A-0016_1846_Matfey_death_crop.jpg" data-cap="1846 — смерть Матфея Стефанова"><img src="artifacts/A-0016_1846_Matfey_death_crop.jpg" alt="Метрическая запись 1846 года о смерти Матфея Стефанова Пархомчика" loading="lazy"></a><figcaption><b>1846, 15 сентября — смерть Матфея.</b> «Местечка Пуховичь крестьянин Матфей Стефанов Пархомчик». Возраст по индексу — 75 лет; на скане первая цифра похожа и на 9. Отпевал священник Амвросий Фалевич.<span class="doc-links"><a class="lb" href="artifacts/full/A-0016_1846_DGS7766713_img568_full.jpg" data-cap="1846 — разворот">Разворот</a> · <a href="https://www.familysearch.org/ark:/61903/3:1:3Q9M-CSM4-W9C2-1" target="_blank" rel="noopener">FamilySearch</a> · <span class="doc-ref">НИАБ, ф. 136, оп. 13, д. 263, л. 939 об.</span></span></figcaption></figure>
+<figure class="doc" id="doc-1851"><a class="lb doc-crop" href="artifacts/A-0015_1851_Ekaterina_crop.jpg" data-cap="1851 — рождение Екатерины"><img src="artifacts/A-0015_1851_Ekaterina_crop.jpg" alt="Метрическая запись 1851 года о рождении Екатерины, дочери Стефана Матфеева Пархомчика" loading="lazy"></a><figcaption><b>1851, 11 декабря — рождение Екатерины.</b> «Местечка Пуховичь крестьянин Стефан Матфеев Пархомчик и законная его жена Евдокия Демьянова». Восприемники — крестьяне местечка Василий Захарьев [Лапка] и жена Андрея [Мисевского] Анна Казимирова.<span class="doc-links"><a class="lb" href="artifacts/full/A-0015_1851_DGS7766701_img336_full.jpg" data-cap="1851 — разворот">Разворот</a> · <a href="https://www.familysearch.org/ark:/61903/3:1:3Q9M-CSM4-Z3Q7-3" target="_blank" rel="noopener">FamilySearch</a> · <span class="doc-ref">НИАБ, ф. 136, оп. 13, д. 281, л. 615 об.</span></span></figcaption></figure>
+<figure class="doc" id="doc-1856"><a class="lb doc-crop" href="artifacts/A-0015_1856_Gavriil_crop.jpg" data-cap="1856 — рождение Гавриила"><img src="artifacts/A-0015_1856_Gavriil_crop.jpg" alt="Метрическая запись 1856 года о рождении Гавриила, сына Степана Матвеева Пархомчика" loading="lazy"></a><figcaption><b>1856, 8 февраля — рождение Гавриила.</b> «Местечка Пуховичь крестьянин помещика Петра Ф[…]беса Степан Матвеев Пархомчик и законная его жена Авдотья Демьянова, оба православного вероисповедания». Восприемники — того же местечка крестьянин Борис Андреев [Масевский] и жена Андрея Осипова Слуцкого Ульяния Матвеева.<span class="doc-links"><a class="lb" href="artifacts/full/A-0015_1856_DGS7766673_img171_full.jpg" data-cap="1856 — разворот">Разворот</a> · <a href="https://www.familysearch.org/ark:/61903/3:1:3Q9M-CSM4-DSKQ-5" target="_blank" rel="noopener">FamilySearch</a> · <span class="doc-ref">НИАБ, ф. 136, оп. 13, д. 297, л. 347 об.</span></span></figcaption></figure>
+<figure class="doc" id="doc-1857a"><a class="lb doc-crop" href="artifacts/A-0015_1857_Marya_Feodosiy_crop.jpg" data-cap="1857 — рождение Марьи, дочери Феодосия"><img src="artifacts/A-0015_1857_Marya_Feodosiy_crop.jpg" alt="Метрическая запись 1857 года о рождении Марьи, дочери Феодосия Семенова Пархомчика" loading="lazy"></a><figcaption><b>1857, 4 июля — рождение Марьи.</b> «Местечка Пуховичь крестьянин Феодосий Семенов Пархомчик и законная его жена [Фекла] Григорьева, оба православного исповедания». Восприемники — крестьяне местечка Устин Мамонтов Ковал[ь] и жена Феодора Степанова [Мурашки] Агафия Лаврентьева.<span class="doc-links"><a class="lb" href="artifacts/full/A-0015_1857_DGS7766697_img734_full.jpg" data-cap="1857 — разворот">Разворот</a> · <a href="https://www.familysearch.org/ark:/61903/3:1:3Q9M-CSM4-7LH2" target="_blank" rel="noopener">FamilySearch</a> · <span class="doc-ref">НИАБ, ф. 136, оп. 13, д. 298в, л. 464 об.</span></span></figcaption></figure>
+<figure class="doc" id="doc-1857b"><a class="lb doc-crop" href="artifacts/A-0015_1857_Stefan_death_crop.jpg" data-cap="1857 — смерть Стефана Матфеева"><img src="artifacts/A-0015_1857_Stefan_death_crop.jpg" alt="Метрическая запись 1857 года о смерти Стефана Матфеева Пархомчика" loading="lazy"></a><figcaption><b>1857, 25 августа — смерть Стефана.</b> № 12: «Местечка Пуховичь крестьянин Стефан Матфеев Пархомчик» — 44 года.<span class="doc-links"><a class="lb" href="artifacts/full/A-0015_1857_DGS7766697_img759_full.jpg" data-cap="1857 — разворот">Разворот</a> · <a href="https://www.familysearch.org/ark:/61903/3:1:3Q9M-CSM4-721S" target="_blank" rel="noopener">FamilySearch</a> · <span class="doc-ref">НИАБ, ф. 136, оп. 13, д. 298в, л. 492 об.</span></span></figcaption></figure>
+
+<h2 id="chronology">Хронология</h2>
+<div class="table-wrap" tabindex="0"><table>
+<thead><tr><th>Дата</th><th>Событие</th><th>Основание</th></tr></thead>
+<tbody>
+<tr><td class="d" data-label="">около 1771</td><td data-label="Событие">Рождение Матфея Стефанова Пархомчика (по возрасту при смерти)</td><td class="t" data-label="Основание"><a href="#doc-1846">метрика 1846</a></td></tr>
+<tr><td class="d" data-label="">10.08.1799</td><td data-label="Событие">У Матфея и Пелагеи Пархомчиков в местечке Пуховичи родилась дочь Параскева</td><td class="t" data-label="Основание"><a href="#doc-1799">метрика</a></td></tr>
+<tr><td class="d" data-label="">29.07.1806</td><td data-label="Событие">Евдокия, дочь Стефана Пархомчика, вышла замуж за Феодора Кавела</td><td class="t" data-label="Основание"><a href="#doc-1806">метрика</a></td></tr>
+<tr><td class="d" data-label="">1.08.1809</td><td data-label="Событие">У Матеуша (Матфея) и Пелагеи родился сын Стефан</td><td class="t" data-label="Основание"><a href="#doc-1809">метрика</a></td></tr>
+<tr><td class="d" data-label="">20.12.1819</td><td data-label="Событие">Родился Игнатий, сын Матфея и Пелагеи Прокопьевны</td><td class="t" data-label="Основание"><a href="#doc-1819">метрика</a></td></tr>
+<tr><td class="d" data-label="">20.01.1838</td><td data-label="Событие">У Стефана Матвеева и Евдокии Демьяновны родилась дочь Ефросиния</td><td class="t" data-label="Основание"><a href="#doc-1838">метрика</a></td></tr>
+<tr><td class="d" data-label="">15.09.1846</td><td data-label="Событие">Умер Матфей Стефанов Пархомчик</td><td class="t" data-label="Основание"><a href="#doc-1846">метрика</a></td></tr>
+<tr><td class="d" data-label="">11.12.1851</td><td data-label="Событие">Родилась Екатерина, дочь Стефана и Евдокии</td><td class="t" data-label="Основание"><a href="#doc-1851">метрика</a></td></tr>
+<tr><td class="d" data-label="">8.02.1856</td><td data-label="Событие">Родился Гавриил, сын Степана и Авдотьи</td><td class="t" data-label="Основание"><a href="#doc-1856">метрика</a></td></tr>
+<tr><td class="d" data-label="">25.08.1857</td><td data-label="Событие">Умер Стефан Матфеев Пархомчик</td><td class="t" data-label="Основание"><a href="#doc-1857b">метрика</a></td></tr>
+<tr><td class="d" data-label="">1896</td><td data-label="Событие">В местечке Пуховичи родился Пётр Петрович Пархомчик</td><td class="t" data-label="Основание"><a href="#source-7">[7]</a> <a href="#source-8">[8]</a></td></tr>
+<tr><td class="d" data-label="">1904</td><td data-label="Событие">В местечке Пуховичи родился Антон Сильвестрович Неронский</td><td class="t" data-label="Основание"><a href="#doc-donesenie">донесение 1944</a></td></tr>
+<tr><td class="d" data-label="">1905</td><td data-label="Событие">Родилась Ольга Петровна, в замужестве Линская</td><td class="t" data-label="Основание"><a href="#doc-linskaya">личный листок 1980</a></td></tr>
+<tr><td class="d" data-label="">9.01.1907</td><td data-label="Событие">В Пуховичах родилась Елена Петровна Пархомчик (27.12.1906 по старому стилю)</td><td class="t" data-label="Основание">сведения семьи; год — <a href="#doc-award">наградной лист</a></td></tr>
+<tr><td class="d" data-label="">2.11.1917</td><td data-label="Событие">Рядовой Пётр Петрович Пархомчик, до войны типограф, поступил больным в госпиталь в Орле</td><td class="t" data-label="Основание"><a href="#doc-gwar">карточка</a></td></tr>
+<tr><td class="d" data-label="">1932</td><td data-label="Событие">Антон Неронский призван Минским райвоенкоматом, военврач</td><td class="t" data-label="Основание"><a href="#doc-donesenie">донесение 1944</a></td></tr>
+<tr><td class="d" data-label="">18.05.1932</td><td data-label="Событие">Арест Петра Петровича Пархомчика; 23.09.1932 — пять лет лагерей</td><td class="t" data-label="Основание"><a href="#source-8">[8]</a></td></tr>
+<tr><td class="d" data-label="">1942</td><td data-label="Событие">Антон в плену под Вязьмой, затем в лагере в Борисове; Елена добивается его освобождения</td><td class="t" data-label="Основание"><a href="#source-2">статья</a></td></tr>
+<tr><td class="d" data-label="">IX.1942</td><td data-label="Событие">Елена Петровна — связная отряда имени Калинина бригады «Правда»</td><td class="t" data-label="Основание"><a href="#doc-award">наградной лист</a></td></tr>
+<tr><td class="d" data-label="">15.09.1943</td><td data-label="Событие">Антон Неронский в партизанском отряде имени Калинина</td><td class="t" data-label="Основание"><a href="#doc-donesenie">донесение</a></td></tr>
+<tr><td class="d" data-label="">2.05.1944</td><td data-label="Событие">У деревни Междуречье погибли Антон Неронский и Николай Линский</td><td class="t" data-label="Основание"><a href="#doc-donesenie">донесение</a>, <a href="#doc-prikaz">приказ</a></td></tr>
+<tr><td class="d" data-label="">5.07.1944</td><td data-label="Событие">Окончание партизанской службы Елены Петровны</td><td class="t" data-label="Основание"><a href="#doc-award">наградной лист</a></td></tr>
+<tr><td class="d" data-label="">23.12.1946</td><td data-label="Событие">Наградной лист на медаль «Партизану Отечественной войны» II степени</td><td class="t" data-label="Основание"><a href="#doc-award">наградной лист</a></td></tr>
+<tr><td class="d" data-label="">19.12.1957</td><td data-label="Событие">Реабилитация Петра Петровича Пархомчика; в том же году погиб Пётр Линский</td><td class="t" data-label="Основание"><a href="#source-8">[8]</a>, <a href="#doc-linskaya">личный листок</a></td></tr>
+<tr><td class="d" data-label="">III.1960</td><td data-label="Событие">Елене Петровне присвоено звание «Заслуженный ветврач БССР»</td><td class="t" data-label="Основание"><a href="#source-2">статья</a></td></tr>
+<tr><td class="d" data-label="">15.08.1992</td><td data-label="Событие">Паспорт воинского захоронения в Пуховичах: Неронский и Линский</td><td class="t" data-label="Основание"><a href="#doc-burial">паспорт</a></td></tr>
+</tbody></table></div>
+
+<h2 id="next">Что дальше</h2>
+<p>Основные ответы теперь лежат в архивах, а не в интернете:</p>
+<ul>
+  <li><b>Национальный исторический архив Беларуси (Минск).</b> Метрические книги Пуховичской Рождество-Богородицкой церкви: рождение Ольги (1905) и Елены (декабрь 1906 года по старому стилю), брак их родителей и записи 1860–1895 годов, которые свяжут отца Елены с Пархомчиками XIX века. Там же — ревизская сказка 1858 года по местечку Пуховичи и дело о дворянстве Неронских.</li>
+  <li><b>Архив КГБ Беларуси.</b> Следственное дело № 21002-с на Петра Петровича Пархомчика (1932). В анкете арестованного обычно перечислены родители, братья и сёстры. Дело выдают родственникам по запросу.</li>
+  <li><b>Записи ЗАГС.</b> Запись о смерти Елены Петровны и записи о детях — дата смерти не установлена.</li>
+  <li><b>«Памятная книжка Минской губернии» 1904 года, с. 141.</b> Там упомянут Василий Пархомчик в связи с Пуховичами, его должность не прочитана.</li>
+</ul>
+
+<h3>Проверено, но не подтвердилось</h3>
+<ul>
+  <li><b>Кондратий Петрович Пархомчик</b>, 1901 года рождения, из деревни Боровая Слобода Пуховичского района — запись в списках запасного полка («Память народа»). С семьёй Елены его ничто не связывает, кроме отчества; родственники в документе не указаны. <span class="tag no">не установлено</span></li>
+  <li><b>«Неронские герба Лебедь».</b> Такое утверждение встречается в пересказах поисковых систем, но ни одного источника, где оно было бы написано, найти не удалось. Описание собственного герба Неронских в доступных гербовниках отсутствует. <span class="tag no">не подтвердилось</span></li>
+  <li><b>Пётр Пархомчик, рождённый в 1835–1860 годах</b> (возможный отец Елены), в индексе метрик Минской губернии не найден. Индекс охватывает не все годы и приходы, так что это не значит, что записи нет.</li>
+</ul>
+
+<h2 id="sources">Источники</h2>
+<ol class="src">
+<li id="source-1"><b>Наградной лист на Неронскую Елену Петровну</b>, 23 декабря 1946 года. НАРБ; электронная копия — база «Партизаны Беларуси», <a href="https://partizany.by/partisans/101111/" target="_blank" rel="noopener">карточка 101111</a>.<span class="imgref"><a class="lb" href="artifacts/A-0004_award_fields.jpg" data-cap="Наградной лист — вырезка">вырезка</a><a class="lb" href="artifacts/full/A-0004_partizany_Neronskaya_doc1_full.jpg" data-cap="Наградной лист — полный лист">скан</a></span></li>
+<li id="source-2"><b>Ольга Савастюк. «…родной земле»</b> // «Пухавіцкія навіны», дата выпуска не установлена (на странице — заметка о 2006 годе). Фото страницы — семейный архив.<span class="imgref"><a class="lb" href="artifacts/full/A-0002_article_full.jpg" data-cap="Статья">статья</a></span></li>
+<li id="source-3"><b>Донесение о безвозвратных потерях партизанского отряда имени Калинина</b>, именной список, стр. 2, №№ 17 и 21. ЦАМО; «Память народа», <a href="https://pamyat-naroda.ru/heroes/memorial-chelovek_donesenie56643761/" target="_blank" rel="noopener">документ</a>.<span class="imgref"><a class="lb" href="artifacts/A-0008_donesenie_17-21.jpg" data-cap="Донесение — вырезка">вырезка</a><a class="lb" href="artifacts/full/A-0008_pamyat_Nironsky_donesenie_full.jpg" data-cap="Донесение — полный лист">скан</a></span></li>
+<li id="source-4"><b>Приказ ГУК ВС СССР № 02706 от 6 декабря 1946 года</b>, п. 3. ЦАМО, ф. 33, оп. 563783, д. 43; «Память народа», <a href="https://pamyat-naroda.ru/heroes/memorial-chelovek_prikaz74901427/" target="_blank" rel="noopener">документ</a>.<span class="imgref"><a class="lb" href="artifacts/A-0006_prikaz_p3.jpg" data-cap="Приказ — вырезка">вырезка</a><a class="lb" href="artifacts/full/A-0006_pamyat_Nironsky_prikaz_full.jpg" data-cap="Приказ — полный лист">скан</a></span></li>
+<li id="source-5"><b>Паспорт воинского захоронения, Пуховичи, кладбище</b>, 15 августа 1992 года, лист 2. «Память народа», <a href="https://pamyat-naroda.ru/heroes/memorial-chelovek_zahoronenie261841908/" target="_blank" rel="noopener">документ</a>.<span class="imgref"><a class="lb" href="artifacts/A-0007_burial_table.jpg" data-cap="Паспорт захоронения — вырезка">вырезка</a><a class="lb" href="artifacts/full/A-0007_pamyat_Neronsky_burial_list_p2.jpg" data-cap="Паспорт захоронения — полный лист">скан</a></span></li>
+<li id="source-6"><b>Документы по учёту партизанских кадров на Линскую Ольгу Петровну</b>, 1980 год (заявление, личный листок, подтверждения), 14 листов. НАРБ; «Партизаны Беларуси», <a href="https://partizany.by/partisans/250287/" target="_blank" rel="noopener">карточка 250287</a>.<span class="imgref"><a class="lb" href="artifacts/A-0005_lichny_listok_p1.jpg" data-cap="Личный листок — вырезка">вырезка</a><a class="lb" href="artifacts/full/A-0005_Linskaya_doc_04_full.jpg" data-cap="Личный листок — лист">скан</a></span></li>
+<li id="source-7"><b>Уведомление о приёме больного: Пархомчик Пётр Петрович</b>, 2 ноября 1917 года. РГВИА, картотека бюро учёта потерь в Первой мировой войне, ящик 2802-П; <a href="https://gwar.mil.ru/heroes/chelovek_gospital24355199/" target="_blank" rel="noopener">«Памяти героев Великой войны»</a>.<span class="imgref"><a class="lb" href="artifacts/full/A-0013_gwar_Parkhomchik_PP_1917_card.jpg" data-cap="Карточка 1917 года">карточка</a></span></li>
+<li id="source-8"><b>Пархомчик Пётр Петрович (1896)</b>. «Открытый список», <a href="https://ru.openlist.wiki/Пархомчик_Петр_Петрович_(1896)" target="_blank" rel="noopener">запись</a>; основание — архив КГБ РБ, дело 21002-с.</li>
+<li id="source-9"><b>Метрические книги Рождество-Богородицкой церкви местечка Пуховичи Игуменского уезда, 1798–1860.</b> НИАБ, ф. 136, оп. 13; микрофильмы FamilySearch, <a href="https://www.familysearch.org/en/search/catalog/koha:1017048" target="_blank" rel="noopener">каталог</a>, коллекция «Belarus, Minsk Church Books, 1700–1965».</li>
+<li id="source-10"><b>Карточки Первой мировой войны на Пархомчиков Минской губернии</b> (60 карточек), в том числе Василий, Павел и Виктор Ефимовичи из местечка Пуховичи. <a href="https://gwar.mil.ru/heroes/" target="_blank" rel="noopener">«Памяти героев Великой войны»</a>.</li>
+<li id="source-11"><b>Генеалогическая база «Жніво»</b>: Пархомчики Пуховичского, Игуменского и Червенского районов (перепись 1926 года, списки партизан и военнослужащих, «Памятная книжка Минской губернии» 1904–1906). <a href="https://db.zhnivo.com/by/" target="_blank" rel="noopener">db.zhnivo.com</a>.</li>
+<li id="source-12"><b>Алфавитный список дворянским родам Минской губернии</b>. Минск, 1903, с. 77. <a href="https://niab.by/l-o/" target="_blank" rel="noopener">НИАБ</a>.</li>
+<li id="source-13"><b>Малы гербоўнік рагачоўскай шляхты</b> (по публикациям журнала «Архіварыус»): «Nierońscy — własnego». <a href="https://lyczkowski.net/pl/herbarz/szlachty-rohaczewskiej" target="_blank" rel="noopener">lyczkowski.net</a>.</li>
+<li id="source-14"><b>Сведения семьи</b>: дата рождения Елены Петровны (9 января 1907 года по новому стилю), девичья фамилия, родство с семьёй Медковых.</li>
+</ol>
+</main>
+<footer class="report-footer"><span>Дело «Неронская (Пархомчик) Елена Петровна», 2026</span><a href="#top">К началу ↑</a></footer>
+</div>
+<div id="lb" class="lb-overlay" hidden role="dialog" aria-modal="true" aria-label="Просмотр изображения">
+  <div class="lb-bar"><span id="lb-cap"></span><button type="button" id="lb-zoom">Крупнее</button><button type="button" id="lb-close">Закрыть</button></div>
+  <div class="lb-stage" id="lb-stage"><img id="lb-img" alt=""></div>
+</div>
+<script>
+(function(){var o=document.getElementById('lb'),img=document.getElementById('lb-img'),st=document.getElementById('lb-stage'),z=document.getElementById('lb-zoom'),c=document.getElementById('lb-cap'),x=document.getElementById('lb-close'),last=null;
+function open(a){last=a;img.src=a.getAttribute('href');img.alt=a.getAttribute('data-cap')||'';c.textContent=a.getAttribute('data-cap')||'';st.classList.remove('zoom');z.textContent='Крупнее';o.hidden=false;document.documentElement.style.overflow='hidden';x.focus();}
+function close(){o.hidden=true;img.removeAttribute('src');document.documentElement.style.overflow='';if(last)last.focus();}
+function zoom(){var on=st.classList.toggle('zoom');z.textContent=on?'Вписать':'Крупнее';}
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a.lb');if(a){e.preventDefault();open(a);}});
+x.addEventListener('click',close);z.addEventListener('click',zoom);img.addEventListener('click',zoom);
+o.addEventListener('click',function(e){if(e.target===o||e.target===st)close();});
+document.addEventListener('keydown',function(e){if(!o.hidden&&e.key==='Escape')close();});})();
+</script>
+</body>
+</html>
